@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostsSocialController;
@@ -23,5 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::resource('authors', AuthorController::class);
 Route::resource('socials', SocialController::class);
+Route::resource('classifications', ClassificationController::class);
 Route::resource('posts', PostController::class);
 Route::resource('posts-socials', PostsSocialController::class);

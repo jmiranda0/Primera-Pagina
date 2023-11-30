@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('content');
             $table->string('image');
             $table->unsignedBigInteger('authors_id');
-            // $table->unsignedBigInteger('socials_id');
+            $table->unsignedBigInteger('classifications_id');
             $table->timestamps();
             $table->foreign('authors_id')->references('id')->on('authors')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreign('socials_id')->references('id')->on('socials')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('classifications_id')->references('id')->on('classifications')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('_posts');
     }
 };
