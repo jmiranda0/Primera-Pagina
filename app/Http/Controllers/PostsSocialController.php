@@ -20,7 +20,7 @@ class PostsSocialController extends Controller
      */
     public function index()
     {
-        $postsSocials = PostsSocial::paginate();
+        $postsSocials = PostsSocial::orderBy('id')->with('post','social')->get();
 
         return response()->json($postsSocials);
     }

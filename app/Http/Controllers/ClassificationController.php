@@ -19,7 +19,7 @@ class ClassificationController extends Controller
      */
     public function index()
     {
-        $classifications = Classification::paginate();
+        $classifications = Classification::orderBy('id')->with('posts')->get();
 
         return response()->json($classifications);
     }

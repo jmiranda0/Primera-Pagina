@@ -19,7 +19,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::paginate(7);
+        $authors = Author::orderBy('id')->with('posts')->get();
 
         return response()->json($authors);
     }
@@ -34,7 +34,7 @@ class AuthorController extends Controller
     {
         request()->validate(Author::$rules);
 
-        $author = Author::create($request->all());
+         Author::create($request->all());
 
         return redirect()->route('authors.index')
             ->with('success', 'Author created successfully.');

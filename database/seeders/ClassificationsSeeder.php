@@ -15,12 +15,12 @@ class ClassificationsSeeder extends Seeder
     {
         //
         DB::table('classifications')->insert([
-            ['ESRB ' => 'RP'],
-            ['ESRB ' => 'E'],
-            ['ESRB ' => 'E10+'],
-            ['ESRB ' => 'T'],
-            ['ESRB ' => 'M'],
-            ['ESRB ' => 'A'],
+            ['ESRB' => 'RP'],
+            ['ESRB' => 'E'],
+            ['ESRB' => 'E10+'],
+            ['ESRB' => 'T'],
+            ['ESRB' => 'M'],
+            ['ESRB' => 'A']
             
         ]);
     }

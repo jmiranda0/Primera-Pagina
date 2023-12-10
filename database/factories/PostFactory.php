@@ -21,8 +21,8 @@ class PostFactory extends Factory
             'title' => fake()->name()." ".fake()->name(),
             'content' => fake()->sentence(),
             'image' => "/img/".fake()->name(),
-            'authors_id' => fake()->randomNumber(1,10),
-            'clasifications_id' => fake()->randomNumber(1,6)
+            'authors_id' => fake()->randomNumber(1,6),
+            'classifications_id' => fake()->randomNumber(1,6)
         ];
     }
 }
