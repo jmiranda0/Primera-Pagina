@@ -40,14 +40,20 @@ class AuthorController extends Controller
             ->with('success', 'Author created successfully.');
     }
 
-    /**
+   /**
      * Display the specified resource.
      *
-     * @param  Author $author
+     * @param  int $author_id
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show(int $author_id)
     {
+        $author = Author::with('posts')->find($author_id);
+
+        if (!$author) {
+            return response()->json(['message' => 'Autor no encontrado'], 404);
+        }
+
         return response()->json($author);
     }
 

@@ -65,11 +65,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Post $post
+     * @param  int $post_id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
-    {
+    public function show(int $post_id)
+    {   
+        $post = Post::with('author','classification')->find($post_id);
         return response()->json($post);
     }
 
