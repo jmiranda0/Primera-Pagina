@@ -19,7 +19,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authors = Author::paginate(7);
+        $authors = Author::orderBy('id')->with('posts')->get();
 
         return response()->json($authors);
     }
@@ -34,20 +34,26 @@ class AuthorController extends Controller
     {
         request()->validate(Author::$rules);
 
-        $author = Author::create($request->all());
+         Author::create($request->all());
 
         return redirect()->route('authors.index')
             ->with('success', 'Author created successfully.');
     }
 
-    /**
+   /**
      * Display the specified resource.
      *
-     * @param  Author $author
+     * @param  int $author_id
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show(int $author_id)
     {
+        $author = Author::with('posts')->find($author_id);
+
+        if (!$author) {
+            return response()->json(['message' => 'Autor no encontrado'], 404);
+        }
+
         return response()->json($author);
     }
 

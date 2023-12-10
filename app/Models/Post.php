@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,10 +13,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property $content
  * @property $image
  * @property $authors_id
+ * @property $classifications_id
  * @property $created_at
  * @property $updated_at
  *
  * @property Author $author
+ * @property Classification $classification
  * @property PostsSocial[] $postsSocials
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -23,12 +26,12 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-
     static $rules = [
 		'title' => 'required',
 		'content' => 'required',
 		'image' => 'required',
 		'authors_id' => 'required',
+		'classifications_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -38,7 +41,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title','content','image','authors_id'];
+    protected $fillable = ['title','content','image','authors_id','classifications_id'];
 
 
     /**
@@ -47,6 +50,14 @@ class Post extends Model
     public function author()
     {
         return $this->hasOne('App\Models\Author', 'id', 'authors_id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function classification()
+    {
+        return $this->hasOne('App\Models\Classification', 'id', 'classifications_id');
     }
     
     /**

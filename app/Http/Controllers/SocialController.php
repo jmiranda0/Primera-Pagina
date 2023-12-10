@@ -19,7 +19,7 @@ class SocialController extends Controller
      */
     public function index()
     {
-        $socials = Social::paginate();
+        $socials = Social::orderBy('id')->with('postsSocials')->get();
 
         return response()->json($socials);
     }

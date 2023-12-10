@@ -19,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(7);
+        $posts = Post::orderBy('id')->with('author', 'classification')->get();
         return response()->json($posts);
     }
 
@@ -34,27 +34,43 @@ class PostController extends Controller
         request()->validate(Post::$rules);
         $post = Post::create($request->all());
         //upload the image
-        if($request->hasFile('images')){
-            $image = $request->file('images');
-            $ruta = 'img/';
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $ruta = '../assets/img/';
             $imagename = $image->getClientOriginalName();
-            $request->file('images')-> move($ruta,$imagename);
+            //$request->file('images')-> move($ruta,$imagename);
             $post->image = $ruta.$imagename;
             $post->save();
         }
         
         return redirect()->route('posts.index')
             ->with('success', 'Post created successfully.');
+           /*  public function store(Request $request)
+{
+    $validatedData = $request->validate(Post::$rules);
+
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $imageName = time() . '_' . $image->getClientOriginalName();
+        $image->storeAs('public/images', $imageName);
+        $validatedData['image'] = 'images/' . $imageName;
+    }
+
+    $post = Post::create($validatedData);
+
+    return response()->json(['message' => 'Post created successfully', 'post' => $post]);
+} */
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Post $post
+     * @param  int $post_id
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
-    {
+    public function show(int $post_id)
+    {   
+        $post = Post::with('author','classification')->find($post_id);
         return response()->json($post);
     }
 
